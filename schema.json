@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/LukaCek/free-ai-models/main/schema.json",
+  "title": "Free AI Models Registry",
+  "type": "object",
+  "required": ["schema_version", "updated_at", "providers"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "updated_at": {"type": "string"},
+    "default_group": {"type": "string"},
+    "description": {"type": "string"},
+    "providers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "chat_completions_url", "api_key_env", "free_tier", "models"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "name": {"type": "string", "minLength": 1},
+          "enabled": {"type": "boolean"},
+          "chat_completions_url": {"type": "string", "format": "uri"},
+          "api_mode": {"type": "string"},
+          "api_key_env": {"type": "string", "minLength": 1},
+          "signup_url": {"type": "string", "format": "uri"},
+          "free_tier": {
+            "type": "object",
+            "required": ["type", "default_group_eligible"],
+            "properties": {
+              "type": {"type": "string"},
+              "default_group_eligible": {"type": "boolean"},
+              "summary": {"type": "string"}
+            },
+            "additionalProperties": true
+          },
+          "sources": {
+            "type": "array",
+            "items": {"type": "string", "format": "uri"}
+          },
+          "models": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "enabled", "include_in_default_group"],
+              "properties": {
+                "id": {"type": "string", "minLength": 1},
+                "enabled": {"type": "boolean"},
+                "include_in_default_group": {"type": "boolean"},
+                "priority": {"type": "integer"},
+                "status": {"type": "string"},
+                "context_tokens": {"type": "integer", "minimum": 1},
+                "capabilities": {
+                  "type": "array",
+                  "items": {"type": "string"}
+                },
+                "free_limits": {"type": "object"},
+                "notes": {"type": "string"}
+              },
+              "additionalProperties": true
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}
