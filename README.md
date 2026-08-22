@@ -27,6 +27,22 @@ Current default candidates are ordered by `priority` (lower is preferred):
 | 70 | Google Gemini | `gemini-3.6-flash` | ongoing free tier |
 | 90 | OpenRouter | `openrouter/free` | dynamic free router |
 
+## Tracked but not automatically routed
+
+### Cloudflare Workers AI
+
+Cloudflare Workers AI has a genuine ongoing free allocation of **10,000 neurons per day** on Workers Free. Cloudflare explicitly confirms that several strong models remain available on the Free plan, including:
+
+- `@cf/google/gemma-4-26b-a4b-it`
+- `@cf/zai-org/glm-4.7-flash`
+- `@cf/nvidia/nemotron-3-120b-a12b`
+
+Workers AI exposes an OpenAI-compatible `/v1/chat/completions` endpoint, but its URL contains the user's Cloudflare account ID. It is therefore tracked in `registry.json` with `default_group_eligible: false` until SimpleAIProxy's registry integration supports provider URL templating / `CLOUDFLARE_ACCOUNT_ID` in addition to an API key.
+
+Cloudflare moved `@cf/moonshotai/kimi-k2.6`, `@cf/moonshotai/kimi-k2.7-code`, and `@cf/zai-org/glm-5.2` to the Workers Paid plan on July 28, 2026, so those models must not be treated as free-tier models.
+
+### NVIDIA NIM
+
 NVIDIA NIM hosted endpoints are tracked for discovery but are excluded from the default group because NVIDIA describes the hosted access under API Trial / prototype terms rather than an ongoing production free tier.
 
 ## Environment variables
@@ -39,6 +55,8 @@ GROQ_API_KEY=...
 MISTRAL_API_KEY=...
 SAMBANOVA_API_KEY=...
 OPENROUTER_API_KEY=...
+CLOUDFLARE_API_KEY=...
+CLOUDFLARE_ACCOUNT_ID=...
 NVIDIA_API_KEY=...
 ```
 
@@ -49,13 +67,15 @@ The registry never contains those values.
 Each provider supplies:
 
 - `id` — stable provider identifier
-- `chat_completions_url` — complete OpenAI-compatible chat-completions endpoint
+- `chat_completions_url` — OpenAI-compatible chat-completions endpoint or documented endpoint template when the provider requires non-secret account metadata
 - `api_mode` — currently `openai_chat_completions`
 - `api_key_env` — name of the local environment variable containing the credential
 - `free_tier.type` — `ongoing`, `prototype_trial`, etc.
 - `free_tier.default_group_eligible` — whether the provider may enter the automatic `free-models` pool
 - `sources` — official documentation used to verify the entry
 - `models[]` — model IDs and routing metadata
+
+Providers that require additional non-secret local configuration may include fields such as `account_id_env`. Such providers stay out of the automatic pool until the consuming proxy supports those fields.
 
 Each model can provide:
 
