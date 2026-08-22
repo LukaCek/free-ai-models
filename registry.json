@@ -213,6 +213,59 @@
       ]
     },
     {
+      "id": "cloudflare-workers-ai",
+      "name": "Cloudflare Workers AI",
+      "enabled": true,
+      "chat_completions_url": "https://api.cloudflare.com/client/v4/accounts/CLOUDFLARE_ACCOUNT_ID/ai/v1/chat/completions",
+      "api_mode": "openai_chat_completions",
+      "api_key_env": "CLOUDFLARE_API_KEY",
+      "account_id_env": "CLOUDFLARE_ACCOUNT_ID",
+      "signup_url": "https://dash.cloudflare.com/",
+      "free_tier": {
+        "type": "ongoing",
+        "default_group_eligible": false,
+        "summary": "Workers AI has an ongoing Workers Free plan with 10,000 free neurons per day. Several high-quality models remain available on Free. Excluded from SimpleAIProxy's default group until registry URL templating for CLOUDFLARE_ACCOUNT_ID is supported."
+      },
+      "sources": [
+        "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+        "https://developers.cloudflare.com/workers-ai/configuration/open-ai-compatibility/",
+        "https://developers.cloudflare.com/changelog/post/2026-07-28-models-require-workers-paid/"
+      ],
+      "models": [
+        {
+          "id": "@cf/google/gemma-4-26b-a4b-it",
+          "enabled": true,
+          "include_in_default_group": false,
+          "priority": 160,
+          "status": "production-free-plan",
+          "context_tokens": 256000,
+          "capabilities": ["text", "vision", "reasoning", "tools"],
+          "free_limits": {"neurons_per_day_shared": 10000},
+          "notes": "Confirmed by Cloudflare as remaining available on Workers Free after the July 28, 2026 paid-plan restriction change."
+        },
+        {
+          "id": "@cf/zai-org/glm-4.7-flash",
+          "enabled": true,
+          "include_in_default_group": false,
+          "priority": 170,
+          "status": "production-free-plan",
+          "capabilities": ["text", "reasoning", "tools", "coding"],
+          "free_limits": {"neurons_per_day_shared": 10000},
+          "notes": "Confirmed by Cloudflare as remaining available on Workers Free after the July 28, 2026 paid-plan restriction change."
+        },
+        {
+          "id": "@cf/nvidia/nemotron-3-120b-a12b",
+          "enabled": true,
+          "include_in_default_group": false,
+          "priority": 180,
+          "status": "production-free-plan",
+          "capabilities": ["text", "reasoning"],
+          "free_limits": {"neurons_per_day_shared": 10000},
+          "notes": "Confirmed by Cloudflare as remaining available on Workers Free after the July 28, 2026 paid-plan restriction change."
+        }
+      ]
+    },
+    {
       "id": "nvidia-nim",
       "name": "NVIDIA NIM Hosted API",
       "enabled": true,
