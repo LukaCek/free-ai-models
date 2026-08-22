@@ -18,9 +18,14 @@
           "id": {"type": "string", "minLength": 1},
           "name": {"type": "string", "minLength": 1},
           "enabled": {"type": "boolean"},
-          "chat_completions_url": {"type": "string", "format": "uri"},
+          "chat_completions_url": {"type": "string", "format": "uri-reference"},
           "api_mode": {"type": "string"},
           "api_key_env": {"type": "string", "minLength": 1},
+          "account_id_env": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Optional environment variable containing an account identifier used to resolve the same-named {PLACEHOLDER} in chat_completions_url. SimpleAIProxy can also store this value per named credential."
+          },
           "signup_url": {"type": "string", "format": "uri"},
           "free_tier": {
             "type": "object",
