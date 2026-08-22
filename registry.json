@@ -1,0 +1,264 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-08-22",
+  "default_group": "free-models",
+  "description": "Curated registry of AI API providers with ongoing free access or clearly marked prototype/trial access. No API keys are stored here.",
+  "providers": [
+    {
+      "id": "google-gemini",
+      "name": "Google Gemini API",
+      "enabled": true,
+      "chat_completions_url": "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+      "api_mode": "openai_chat_completions",
+      "api_key_env": "GEMINI_API_KEY",
+      "signup_url": "https://aistudio.google.com/apikey",
+      "free_tier": {
+        "type": "ongoing",
+        "default_group_eligible": true,
+        "summary": "Gemini Developer API Free Tier with free input and output tokens; limits apply. Free-tier content may be used to improve Google products."
+      },
+      "sources": [
+        "https://ai.google.dev/gemini-api/docs/pricing",
+        "https://ai.google.dev/gemini-api/docs/openai"
+      ],
+      "models": [
+        {
+          "id": "gemini-3.7-flash",
+          "enabled": true,
+          "include_in_default_group": true,
+          "priority": 10,
+          "status": "ga",
+          "context_tokens": 1000000,
+          "capabilities": ["text", "vision", "reasoning", "tools", "structured-output"],
+          "notes": "Current high-quality default Gemini free-tier model for coding and agentic workflows."
+        },
+        {
+          "id": "gemini-3.6-flash",
+          "enabled": true,
+          "include_in_default_group": true,
+          "priority": 70,
+          "status": "ga",
+          "capabilities": ["text", "vision", "reasoning", "tools", "structured-output"],
+          "notes": "Secondary Gemini fallback on the same free tier."
+        }
+      ]
+    },
+    {
+      "id": "groq",
+      "name": "Groq",
+      "enabled": true,
+      "chat_completions_url": "https://api.groq.com/openai/v1/chat/completions",
+      "api_mode": "openai_chat_completions",
+      "api_key_env": "GROQ_API_KEY",
+      "signup_url": "https://console.groq.com/keys",
+      "free_tier": {
+        "type": "ongoing",
+        "default_group_eligible": true,
+        "summary": "Groq Free Plan. Limits are per model and may change."
+      },
+      "sources": [
+        "https://console.groq.com/docs/rate-limits",
+        "https://console.groq.com/docs/openai"
+      ],
+      "models": [
+        {
+          "id": "openai/gpt-oss-120b",
+          "enabled": true,
+          "include_in_default_group": true,
+          "priority": 20,
+          "status": "production",
+          "context_tokens": 131072,
+          "capabilities": ["text", "reasoning", "tools"],
+          "free_limits": {"rpm": 30, "rpd": 1000, "tpm": 8000, "tpd": 200000}
+        },
+        {
+          "id": "qwen/qwen3.6-27b",
+          "enabled": true,
+          "include_in_default_group": true,
+          "priority": 50,
+          "status": "preview",
+          "context_tokens": 131072,
+          "capabilities": ["text", "vision", "reasoning", "tools", "structured-output"],
+          "free_limits": {"rpm": 30, "rpd": 1000, "tpm": 8000, "tpd": 200000}
+        },
+        {
+          "id": "openai/gpt-oss-20b",
+          "enabled": true,
+          "include_in_default_group": false,
+          "priority": 120,
+          "status": "production",
+          "capabilities": ["text", "reasoning", "tools"],
+          "free_limits": {"rpm": 30, "rpd": 1000, "tpm": 8000, "tpd": 200000}
+        }
+      ]
+    },
+    {
+      "id": "mistral",
+      "name": "Mistral AI",
+      "enabled": true,
+      "chat_completions_url": "https://api.mistral.ai/v1/chat/completions",
+      "api_mode": "openai_chat_completions",
+      "api_key_env": "MISTRAL_API_KEY",
+      "signup_url": "https://console.mistral.ai/",
+      "free_tier": {
+        "type": "ongoing",
+        "default_group_eligible": true,
+        "summary": "Mistral Studio Free mode is enabled by default with no credit card required; usage and rate limits apply."
+      },
+      "sources": [
+        "https://docs.mistral.ai/getting-started/quickstarts/studio/activate-and-generate-api-key",
+        "https://docs.mistral.ai/getting-started/quickstarts/developer/first-api-request"
+      ],
+      "models": [
+        {
+          "id": "mistral-large-latest",
+          "enabled": true,
+          "include_in_default_group": true,
+          "priority": 30,
+          "status": "latest-alias",
+          "capabilities": ["text", "reasoning", "tools", "structured-output"],
+          "notes": "Model used by Mistral's current first-request quickstart. Availability is subject to Free mode account limits."
+        }
+      ]
+    },
+    {
+      "id": "sambanova",
+      "name": "SambaNova Cloud",
+      "enabled": true,
+      "chat_completions_url": "https://api.sambanova.ai/v1/chat/completions",
+      "api_mode": "openai_chat_completions",
+      "api_key_env": "SAMBANOVA_API_KEY",
+      "signup_url": "https://cloud.sambanova.ai/",
+      "free_tier": {
+        "type": "ongoing",
+        "default_group_eligible": true,
+        "summary": "SambaCloud Free Tier is applied when no payment method is linked. Production model free limits are currently 20 RPM, 20 RPD and 200k tokens/day per model."
+      },
+      "sources": [
+        "https://docs.sambanova.ai/docs/en/models/rate-limits",
+        "https://docs.sambanova.ai/docs/en/get-started/api-keys-urls",
+        "https://docs.sambanova.ai/docs/en/features/openai-compatibility"
+      ],
+      "models": [
+        {
+          "id": "gpt-oss-120b",
+          "enabled": true,
+          "include_in_default_group": true,
+          "priority": 40,
+          "status": "production",
+          "context_tokens": 128000,
+          "capabilities": ["text", "reasoning", "tools", "structured-output"],
+          "free_limits": {"rpm": 20, "rpd": 20, "tpd": 200000}
+        },
+        {
+          "id": "DeepSeek-V3.1",
+          "enabled": true,
+          "include_in_default_group": true,
+          "priority": 60,
+          "status": "production",
+          "context_tokens": 128000,
+          "capabilities": ["text"],
+          "free_limits": {"rpm": 20, "rpd": 20, "tpd": 200000}
+        },
+        {
+          "id": "DeepSeek-V3.2",
+          "enabled": true,
+          "include_in_default_group": false,
+          "priority": 130,
+          "status": "preview",
+          "context_tokens": 32000,
+          "capabilities": ["text", "reasoning"],
+          "free_limits": {"rpm": 20, "rpd": 20, "tpd": 200000},
+          "notes": "Preview/evaluation model; may be removed at short notice."
+        },
+        {
+          "id": "Meta-Llama-3.3-70B-Instruct",
+          "enabled": true,
+          "include_in_default_group": false,
+          "priority": 140,
+          "status": "production",
+          "context_tokens": 128000,
+          "capabilities": ["text"],
+          "free_limits": {"rpm": 20, "rpd": 20, "tpd": 200000}
+        }
+      ]
+    },
+    {
+      "id": "openrouter",
+      "name": "OpenRouter",
+      "enabled": true,
+      "chat_completions_url": "https://openrouter.ai/api/v1/chat/completions",
+      "api_mode": "openai_chat_completions",
+      "api_key_env": "OPENROUTER_API_KEY",
+      "signup_url": "https://openrouter.ai/keys",
+      "free_tier": {
+        "type": "ongoing",
+        "default_group_eligible": true,
+        "summary": "OpenRouter Free Models Router dynamically selects from currently available free-variant models that match request capabilities."
+      },
+      "sources": [
+        "https://openrouter.ai/openrouter/free",
+        "https://openrouter.ai/docs/quickstart"
+      ],
+      "models": [
+        {
+          "id": "openrouter/free",
+          "enabled": true,
+          "include_in_default_group": true,
+          "priority": 90,
+          "status": "dynamic-router",
+          "capabilities": ["text", "vision", "reasoning", "tools", "structured-output"],
+          "notes": "Dynamic free router. The underlying free model can change between requests."
+        }
+      ]
+    },
+    {
+      "id": "nvidia-nim",
+      "name": "NVIDIA NIM Hosted API",
+      "enabled": true,
+      "chat_completions_url": "https://integrate.api.nvidia.com/v1/chat/completions",
+      "api_mode": "openai_chat_completions",
+      "api_key_env": "NVIDIA_API_KEY",
+      "signup_url": "https://build.nvidia.com/",
+      "free_tier": {
+        "type": "prototype_trial",
+        "default_group_eligible": false,
+        "summary": "NVIDIA Build exposes free prototype endpoints, but the hosted service is governed by NVIDIA API Trial Terms. Listed for discovery, excluded from free-models by default."
+      },
+      "sources": [
+        "https://build.nvidia.com/nvidia/nemotron-3.5-lightning-30b-a3b/build",
+        "https://build.nvidia.com/nvidia/nemotron-3-ultra-550b-a55b/playground",
+        "https://build.nvidia.com/z-ai/glm-5.2/playground"
+      ],
+      "models": [
+        {
+          "id": "nvidia/nemotron-3.5-lightning-30b-a3b",
+          "enabled": true,
+          "include_in_default_group": false,
+          "priority": 200,
+          "status": "prototype",
+          "context_tokens": 1000000,
+          "capabilities": ["text", "reasoning", "tools", "agentic"]
+        },
+        {
+          "id": "nvidia/nemotron-3-ultra-550b-a55b",
+          "enabled": true,
+          "include_in_default_group": false,
+          "priority": 210,
+          "status": "prototype",
+          "context_tokens": 1000000,
+          "capabilities": ["text", "reasoning", "tools", "agentic"]
+        },
+        {
+          "id": "z-ai/glm-5.2",
+          "enabled": true,
+          "include_in_default_group": false,
+          "priority": 220,
+          "status": "prototype",
+          "context_tokens": 1000000,
+          "capabilities": ["text", "reasoning", "tools", "coding", "agentic"]
+        }
+      ]
+    }
+  ]
+}
