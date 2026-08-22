@@ -216,15 +216,15 @@
       "id": "cloudflare-workers-ai",
       "name": "Cloudflare Workers AI",
       "enabled": true,
-      "chat_completions_url": "https://api.cloudflare.com/client/v4/accounts/CLOUDFLARE_ACCOUNT_ID/ai/v1/chat/completions",
+      "chat_completions_url": "https://api.cloudflare.com/client/v4/accounts/{CLOUDFLARE_ACCOUNT_ID}/ai/v1/chat/completions",
       "api_mode": "openai_chat_completions",
       "api_key_env": "CLOUDFLARE_API_KEY",
       "account_id_env": "CLOUDFLARE_ACCOUNT_ID",
       "signup_url": "https://dash.cloudflare.com/",
       "free_tier": {
         "type": "ongoing",
-        "default_group_eligible": false,
-        "summary": "Workers AI has an ongoing Workers Free plan with 10,000 free neurons per day. Several high-quality models remain available on Free. Excluded from SimpleAIProxy's default group until registry URL templating for CLOUDFLARE_ACCOUNT_ID is supported."
+        "default_group_eligible": true,
+        "summary": "Workers AI has an ongoing Workers Free plan with 10,000 free neurons per day. SimpleAIProxy resolves the Cloudflare Account ID per credential and can route these Free-plan models automatically."
       },
       "sources": [
         "https://developers.cloudflare.com/workers-ai/platform/pricing/",
@@ -233,10 +233,20 @@
       ],
       "models": [
         {
+          "id": "@cf/zai-org/glm-4.7-flash",
+          "enabled": true,
+          "include_in_default_group": true,
+          "priority": 75,
+          "status": "production-free-plan",
+          "capabilities": ["text", "reasoning", "tools", "coding"],
+          "free_limits": {"neurons_per_day_shared": 10000},
+          "notes": "Confirmed by Cloudflare as remaining available on Workers Free after the July 28, 2026 paid-plan restriction change."
+        },
+        {
           "id": "@cf/google/gemma-4-26b-a4b-it",
           "enabled": true,
-          "include_in_default_group": false,
-          "priority": 160,
+          "include_in_default_group": true,
+          "priority": 80,
           "status": "production-free-plan",
           "context_tokens": 256000,
           "capabilities": ["text", "vision", "reasoning", "tools"],
@@ -244,20 +254,10 @@
           "notes": "Confirmed by Cloudflare as remaining available on Workers Free after the July 28, 2026 paid-plan restriction change."
         },
         {
-          "id": "@cf/zai-org/glm-4.7-flash",
-          "enabled": true,
-          "include_in_default_group": false,
-          "priority": 170,
-          "status": "production-free-plan",
-          "capabilities": ["text", "reasoning", "tools", "coding"],
-          "free_limits": {"neurons_per_day_shared": 10000},
-          "notes": "Confirmed by Cloudflare as remaining available on Workers Free after the July 28, 2026 paid-plan restriction change."
-        },
-        {
           "id": "@cf/nvidia/nemotron-3-120b-a12b",
           "enabled": true,
-          "include_in_default_group": false,
-          "priority": 180,
+          "include_in_default_group": true,
+          "priority": 85,
           "status": "production-free-plan",
           "capabilities": ["text", "reasoning"],
           "free_limits": {"neurons_per_day_shared": 10000},
@@ -275,41 +275,42 @@
       "signup_url": "https://build.nvidia.com/",
       "free_tier": {
         "type": "prototype_trial",
-        "default_group_eligible": false,
-        "summary": "NVIDIA Build exposes free prototype endpoints, but the hosted service is governed by NVIDIA API Trial Terms. Listed for discovery, excluded from free-models by default."
+        "default_group_eligible": true,
+        "summary": "NVIDIA Build provides free serverless API endpoints for development/prototyping under API Trial terms. This registry explicitly allows them as late fallbacks in free-models while keeping the prototype/trial classification visible."
       },
       "sources": [
         "https://build.nvidia.com/nvidia/nemotron-3.5-lightning-30b-a3b/build",
         "https://build.nvidia.com/nvidia/nemotron-3-ultra-550b-a55b/playground",
-        "https://build.nvidia.com/z-ai/glm-5.2/playground"
+        "https://build.nvidia.com/z-ai/glm-5.2/playground",
+        "https://build.nvidia.com/explore/discover?docker=false"
       ],
       "models": [
         {
-          "id": "nvidia/nemotron-3.5-lightning-30b-a3b",
+          "id": "z-ai/glm-5.2",
           "enabled": true,
-          "include_in_default_group": false,
-          "priority": 200,
-          "status": "prototype",
+          "include_in_default_group": true,
+          "priority": 95,
+          "status": "prototype-free-endpoint",
           "context_tokens": 1000000,
-          "capabilities": ["text", "reasoning", "tools", "agentic"]
+          "capabilities": ["text", "reasoning", "tools", "coding", "agentic"]
         },
         {
           "id": "nvidia/nemotron-3-ultra-550b-a55b",
           "enabled": true,
-          "include_in_default_group": false,
-          "priority": 210,
-          "status": "prototype",
+          "include_in_default_group": true,
+          "priority": 100,
+          "status": "prototype-free-endpoint",
           "context_tokens": 1000000,
           "capabilities": ["text", "reasoning", "tools", "agentic"]
         },
         {
-          "id": "z-ai/glm-5.2",
+          "id": "nvidia/nemotron-3.5-lightning-30b-a3b",
           "enabled": true,
-          "include_in_default_group": false,
-          "priority": 220,
-          "status": "prototype",
+          "include_in_default_group": true,
+          "priority": 105,
+          "status": "prototype-free-endpoint",
           "context_tokens": 1000000,
-          "capabilities": ["text", "reasoning", "tools", "coding", "agentic"]
+          "capabilities": ["text", "reasoning", "tools", "agentic"]
         }
       ]
     }
