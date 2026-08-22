@@ -12,7 +12,9 @@ SimpleAIProxy should include only models where:
 - `free_tier.default_group_eligible` is `true`,
 - the model is enabled,
 - `include_in_default_group` is `true`, and
-- the environment variable named by `api_key_env` is present locally.
+- the required local provider credential is complete.
+
+For normal providers that means an API key. Account-scoped providers such as Cloudflare Workers AI additionally require the account ID named by `account_id_env`; SimpleAIProxy can store that value separately for every named credential.
 
 Current default candidates are ordered by `priority` (lower is preferred):
 
@@ -25,9 +27,15 @@ Current default candidates are ordered by `priority` (lower is preferred):
 | 50 | Groq | `qwen/qwen3.6-27b` | ongoing free plan |
 | 60 | SambaNova Cloud | `DeepSeek-V3.1` | free tier |
 | 70 | Google Gemini | `gemini-3.6-flash` | ongoing free tier |
+| 75 | Cloudflare Workers AI | `@cf/zai-org/glm-4.7-flash` | Workers Free, shared 10k neurons/day |
+| 80 | Cloudflare Workers AI | `@cf/google/gemma-4-26b-a4b-it` | Workers Free, shared 10k neurons/day |
+| 85 | Cloudflare Workers AI | `@cf/nvidia/nemotron-3-120b-a12b` | Workers Free, shared 10k neurons/day |
 | 90 | OpenRouter | `openrouter/free` | dynamic free router |
+| 95 | NVIDIA NIM | `z-ai/glm-5.2` | free prototype/development endpoint |
+| 100 | NVIDIA NIM | `nvidia/nemotron-3-ultra-550b-a55b` | free prototype/development endpoint |
+| 105 | NVIDIA NIM | `nvidia/nemotron-3.5-lightning-30b-a3b` | free prototype/development endpoint |
 
-## Tracked but not automatically routed
+## Provider notes
 
 ### Cloudflare Workers AI
 
@@ -37,17 +45,17 @@ Cloudflare Workers AI has a genuine ongoing free allocation of **10,000 neurons 
 - `@cf/zai-org/glm-4.7-flash`
 - `@cf/nvidia/nemotron-3-120b-a12b`
 
-Workers AI exposes an OpenAI-compatible `/v1/chat/completions` endpoint, but its URL contains the user's Cloudflare account ID. It is therefore tracked in `registry.json` with `default_group_eligible: false` until SimpleAIProxy's registry integration supports provider URL templating / `CLOUDFLARE_ACCOUNT_ID` in addition to an API key.
+Workers AI exposes an OpenAI-compatible `/v1/chat/completions` endpoint. Its URL includes the user's Cloudflare Account ID, so the registry declares `account_id_env: CLOUDFLARE_ACCOUNT_ID` and uses `{CLOUDFLARE_ACCOUNT_ID}` in the endpoint template. SimpleAIProxy resolves this value from either environment variables or from the account ID saved beside each UI-managed credential.
 
-Cloudflare moved `@cf/moonshotai/kimi-k2.6`, `@cf/moonshotai/kimi-k2.7-code`, and `@cf/zai-org/glm-5.2` to the Workers Paid plan on July 28, 2026, so those models must not be treated as free-tier models.
+Cloudflare moved `@cf/moonshotai/kimi-k2.6`, `@cf/moonshotai/kimi-k2.7-code`, and `@cf/zai-org/glm-5.2` to the Workers Paid plan on July 28, 2026, so those models are not treated as Free-plan models here.
 
 ### NVIDIA NIM
 
-NVIDIA NIM hosted endpoints are tracked for discovery but are excluded from the default group because NVIDIA describes the hosted access under API Trial / prototype terms rather than an ongoing production free tier.
+NVIDIA Build currently exposes several models as **Free Endpoint** / free serverless APIs for development. These endpoints are still governed by NVIDIA API Trial/prototype terms rather than an ordinary production free tier. They are deliberately kept classified as `prototype_trial` while being explicitly enabled as late fallbacks in this registry's `free-models` pool.
 
 ## Environment variables
 
-SimpleAIProxy resolves credentials locally using the `api_key_env` values in the registry. Typical variables are:
+SimpleAIProxy resolves credentials locally using the registry metadata. Typical variables are:
 
 ```bash
 GEMINI_API_KEY=...
@@ -67,15 +75,14 @@ The registry never contains those values.
 Each provider supplies:
 
 - `id` — stable provider identifier
-- `chat_completions_url` — OpenAI-compatible chat-completions endpoint or documented endpoint template when the provider requires non-secret account metadata
+- `chat_completions_url` — OpenAI-compatible chat-completions endpoint or endpoint template
 - `api_mode` — currently `openai_chat_completions`
-- `api_key_env` — name of the local environment variable containing the credential
+- `api_key_env` — name of the local environment variable containing the API credential
+- `account_id_env` — optional environment variable whose value resolves the same-named `{PLACEHOLDER}` in the endpoint URL; SimpleAIProxy may also store it per named credential
 - `free_tier.type` — `ongoing`, `prototype_trial`, etc.
 - `free_tier.default_group_eligible` — whether the provider may enter the automatic `free-models` pool
 - `sources` — official documentation used to verify the entry
 - `models[]` — model IDs and routing metadata
-
-Providers that require additional non-secret local configuration may include fields such as `account_id_env`. Such providers stay out of the automatic pool until the consuming proxy supports those fields.
 
 Each model can provide:
 
@@ -94,7 +101,7 @@ When updating this registry:
 
 1. Prefer official provider documentation.
 2. Do not classify signup credits or short-lived promotional credits as an ongoing free tier.
-3. Keep prototype/trial access clearly separated from the default pool.
+3. Keep prototype/trial access clearly labeled even when it is intentionally allowed into the fallback pool.
 4. Preserve provider/model IDs exactly as required by the upstream API.
 5. Update `updated_at` whenever verified availability, limits, endpoints, or model IDs change.
 6. Never commit API keys, OAuth tokens, account identifiers, or other secrets.
