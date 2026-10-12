@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-22",
+  "updated_at": "2026-10-12",
   "default_group": "free-models",
   "description": "Curated registry of AI API providers with ongoing free access or clearly marked prototype/trial access. No API keys are stored here.",
   "providers": [
@@ -29,7 +29,13 @@
           "priority": 10,
           "status": "ga",
           "context_tokens": 1000000,
-          "capabilities": ["text", "vision", "reasoning", "tools", "structured-output"],
+          "capabilities": [
+            "text",
+            "vision",
+            "reasoning",
+            "tools",
+            "structured-output"
+          ],
           "notes": "Current high-quality default Gemini free-tier model for coding and agentic workflows."
         },
         {
@@ -38,7 +44,13 @@
           "include_in_default_group": true,
           "priority": 70,
           "status": "ga",
-          "capabilities": ["text", "vision", "reasoning", "tools", "structured-output"],
+          "capabilities": [
+            "text",
+            "vision",
+            "reasoning",
+            "tools",
+            "structured-output"
+          ],
           "notes": "Secondary Gemini fallback on the same free tier."
         }
       ]
@@ -68,8 +80,17 @@
           "priority": 20,
           "status": "production",
           "context_tokens": 131072,
-          "capabilities": ["text", "reasoning", "tools"],
-          "free_limits": {"rpm": 30, "rpd": 1000, "tpm": 8000, "tpd": 200000}
+          "capabilities": [
+            "text",
+            "reasoning",
+            "tools"
+          ],
+          "free_limits": {
+            "rpm": 30,
+            "rpd": 1000,
+            "tpm": 8000,
+            "tpd": 200000
+          }
         },
         {
           "id": "qwen/qwen3.6-27b",
@@ -78,8 +99,19 @@
           "priority": 50,
           "status": "preview",
           "context_tokens": 131072,
-          "capabilities": ["text", "vision", "reasoning", "tools", "structured-output"],
-          "free_limits": {"rpm": 30, "rpd": 1000, "tpm": 8000, "tpd": 200000}
+          "capabilities": [
+            "text",
+            "vision",
+            "reasoning",
+            "tools",
+            "structured-output"
+          ],
+          "free_limits": {
+            "rpm": 30,
+            "rpd": 1000,
+            "tpm": 8000,
+            "tpd": 200000
+          }
         },
         {
           "id": "openai/gpt-oss-20b",
@@ -87,8 +119,17 @@
           "include_in_default_group": false,
           "priority": 120,
           "status": "production",
-          "capabilities": ["text", "reasoning", "tools"],
-          "free_limits": {"rpm": 30, "rpd": 1000, "tpm": 8000, "tpd": 200000}
+          "capabilities": [
+            "text",
+            "reasoning",
+            "tools"
+          ],
+          "free_limits": {
+            "rpm": 30,
+            "rpd": 1000,
+            "tpm": 8000,
+            "tpd": 200000
+          }
         }
       ]
     },
@@ -116,7 +157,12 @@
           "include_in_default_group": true,
           "priority": 30,
           "status": "latest-alias",
-          "capabilities": ["text", "reasoning", "tools", "structured-output"],
+          "capabilities": [
+            "text",
+            "reasoning",
+            "tools",
+            "structured-output"
+          ],
           "notes": "Model used by Mistral's current first-request quickstart. Availability is subject to Free mode account limits."
         }
       ]
@@ -147,8 +193,17 @@
           "priority": 40,
           "status": "production",
           "context_tokens": 128000,
-          "capabilities": ["text", "reasoning", "tools", "structured-output"],
-          "free_limits": {"rpm": 20, "rpd": 20, "tpd": 200000}
+          "capabilities": [
+            "text",
+            "reasoning",
+            "tools",
+            "structured-output"
+          ],
+          "free_limits": {
+            "rpm": 20,
+            "rpd": 20,
+            "tpd": 200000
+          }
         },
         {
           "id": "DeepSeek-V3.1",
@@ -157,8 +212,14 @@
           "priority": 60,
           "status": "production",
           "context_tokens": 128000,
-          "capabilities": ["text"],
-          "free_limits": {"rpm": 20, "rpd": 20, "tpd": 200000}
+          "capabilities": [
+            "text"
+          ],
+          "free_limits": {
+            "rpm": 20,
+            "rpd": 20,
+            "tpd": 200000
+          }
         },
         {
           "id": "DeepSeek-V3.2",
@@ -167,8 +228,15 @@
           "priority": 130,
           "status": "preview",
           "context_tokens": 32000,
-          "capabilities": ["text", "reasoning"],
-          "free_limits": {"rpm": 20, "rpd": 20, "tpd": 200000},
+          "capabilities": [
+            "text",
+            "reasoning"
+          ],
+          "free_limits": {
+            "rpm": 20,
+            "rpd": 20,
+            "tpd": 200000
+          },
           "notes": "Preview/evaluation model; may be removed at short notice."
         },
         {
@@ -178,8 +246,14 @@
           "priority": 140,
           "status": "production",
           "context_tokens": 128000,
-          "capabilities": ["text"],
-          "free_limits": {"rpm": 20, "rpd": 20, "tpd": 200000}
+          "capabilities": [
+            "text"
+          ],
+          "free_limits": {
+            "rpm": 20,
+            "rpd": 20,
+            "tpd": 200000
+          }
         }
       ]
     },
@@ -207,7 +281,13 @@
           "include_in_default_group": true,
           "priority": 90,
           "status": "dynamic-router",
-          "capabilities": ["text", "vision", "reasoning", "tools", "structured-output"],
+          "capabilities": [
+            "text",
+            "vision",
+            "reasoning",
+            "tools",
+            "structured-output"
+          ],
           "notes": "Dynamic free router. The underlying free model can change between requests."
         }
       ]
@@ -229,7 +309,8 @@
       "sources": [
         "https://developers.cloudflare.com/workers-ai/platform/pricing/",
         "https://developers.cloudflare.com/workers-ai/configuration/open-ai-compatibility/",
-        "https://developers.cloudflare.com/changelog/post/2026-07-28-models-require-workers-paid/"
+        "https://developers.cloudflare.com/changelog/post/2026-07-28-models-require-workers-paid/",
+        "https://developers.cloudflare.com/workers-ai/models/qwen3.8-27b/"
       ],
       "models": [
         {
@@ -238,8 +319,15 @@
           "include_in_default_group": true,
           "priority": 75,
           "status": "production-free-plan",
-          "capabilities": ["text", "reasoning", "tools", "coding"],
-          "free_limits": {"neurons_per_day_shared": 10000},
+          "capabilities": [
+            "text",
+            "reasoning",
+            "tools",
+            "coding"
+          ],
+          "free_limits": {
+            "neurons_per_day_shared": 10000
+          },
           "notes": "Confirmed by Cloudflare as remaining available on Workers Free after the July 28, 2026 paid-plan restriction change."
         },
         {
@@ -249,8 +337,15 @@
           "priority": 80,
           "status": "production-free-plan",
           "context_tokens": 256000,
-          "capabilities": ["text", "vision", "reasoning", "tools"],
-          "free_limits": {"neurons_per_day_shared": 10000},
+          "capabilities": [
+            "text",
+            "vision",
+            "reasoning",
+            "tools"
+          ],
+          "free_limits": {
+            "neurons_per_day_shared": 10000
+          },
           "notes": "Confirmed by Cloudflare as remaining available on Workers Free after the July 28, 2026 paid-plan restriction change."
         },
         {
@@ -259,9 +354,33 @@
           "include_in_default_group": true,
           "priority": 85,
           "status": "production-free-plan",
-          "capabilities": ["text", "reasoning"],
-          "free_limits": {"neurons_per_day_shared": 10000},
+          "capabilities": [
+            "text",
+            "reasoning"
+          ],
+          "free_limits": {
+            "neurons_per_day_shared": 10000
+          },
           "notes": "Confirmed by Cloudflare as remaining available on Workers Free after the July 28, 2026 paid-plan restriction change."
+        },
+        {
+          "id": "@cf/qwen/qwen3.8-27b",
+          "enabled": true,
+          "include_in_default_group": true,
+          "priority": 87,
+          "status": "production-free-plan",
+          "context_tokens": 262144,
+          "capabilities": [
+            "text",
+            "vision",
+            "reasoning",
+            "tools",
+            "coding"
+          ],
+          "free_limits": {
+            "neurons_per_day_shared": 10000
+          },
+          "notes": "Cloudflare-hosted Qwen model with vision, reasoning and function calling. Included under Workers Free daily shared allocation; not on the paid-only model list as of 2026-10-12."
         }
       ]
     },
@@ -292,7 +411,13 @@
           "priority": 95,
           "status": "prototype-free-endpoint",
           "context_tokens": 1000000,
-          "capabilities": ["text", "reasoning", "tools", "coding", "agentic"]
+          "capabilities": [
+            "text",
+            "reasoning",
+            "tools",
+            "coding",
+            "agentic"
+          ]
         },
         {
           "id": "nvidia/nemotron-3-ultra-550b-a55b",
@@ -301,7 +426,12 @@
           "priority": 100,
           "status": "prototype-free-endpoint",
           "context_tokens": 1000000,
-          "capabilities": ["text", "reasoning", "tools", "agentic"]
+          "capabilities": [
+            "text",
+            "reasoning",
+            "tools",
+            "agentic"
+          ]
         },
         {
           "id": "nvidia/nemotron-3.5-lightning-30b-a3b",
@@ -310,7 +440,12 @@
           "priority": 105,
           "status": "prototype-free-endpoint",
           "context_tokens": 1000000,
-          "capabilities": ["text", "reasoning", "tools", "agentic"]
+          "capabilities": [
+            "text",
+            "reasoning",
+            "tools",
+            "agentic"
+          ]
         }
       ]
     }
