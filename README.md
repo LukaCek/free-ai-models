@@ -30,6 +30,7 @@ Current default candidates are ordered by `priority` (lower is preferred):
 | 75 | Cloudflare Workers AI | `@cf/zai-org/glm-4.7-flash` | Workers Free, shared 10k neurons/day |
 | 80 | Cloudflare Workers AI | `@cf/google/gemma-4-26b-a4b-it` | Workers Free, shared 10k neurons/day |
 | 85 | Cloudflare Workers AI | `@cf/nvidia/nemotron-3-120b-a12b` | Workers Free, shared 10k neurons/day |
+| 87 | Cloudflare Workers AI | `@cf/qwen/qwen3.8-27b` | Workers Free, shared 10k neurons/day |
 | 90 | OpenRouter | `openrouter/free` | dynamic free router |
 | 95 | NVIDIA NIM | `z-ai/glm-5.2` | free prototype/development endpoint |
 | 100 | NVIDIA NIM | `nvidia/nemotron-3-ultra-550b-a55b` | free prototype/development endpoint |
@@ -44,6 +45,7 @@ Cloudflare Workers AI has a genuine ongoing free allocation of **10,000 neurons 
 - `@cf/google/gemma-4-26b-a4b-it`
 - `@cf/zai-org/glm-4.7-flash`
 - `@cf/nvidia/nemotron-3-120b-a12b`
+- `@cf/qwen/qwen3.8-27b`
 
 Workers AI exposes an OpenAI-compatible `/v1/chat/completions` endpoint. Its URL includes the user's Cloudflare Account ID, so the registry declares `account_id_env: CLOUDFLARE_ACCOUNT_ID` and uses `{CLOUDFLARE_ACCOUNT_ID}` in the endpoint template. SimpleAIProxy resolves this value from either environment variables or from the account ID saved beside each UI-managed credential.
 
@@ -106,4 +108,4 @@ When updating this registry:
 5. Update `updated_at` whenever verified availability, limits, endpoints, or model IDs change.
 6. Never commit API keys, OAuth tokens, account identifiers, or other secrets.
 
-Last verified: **2026-08-22**.
+Last verified: **2026-10-12**.
