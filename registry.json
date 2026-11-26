@@ -157,7 +157,7 @@
           "id": "openai/gpt-oss-20b",
           "enabled": true,
           "include_in_default_group": true,
-          "priority": 120,
+          "priority": 92,
           "status": "production",
           "capabilities": [
             "text",
@@ -216,9 +216,9 @@
       "api_key_env": "SAMBANOVA_API_KEY",
       "signup_url": "https://cloud.sambanova.ai/",
       "free_tier": {
-        "type": "ongoing",
+        "type": "prototype_trial",
         "default_group_eligible": true,
-        "summary": "Free account without a payment method; listed models are preview/evaluation only, not for production. Free limits 20 RPM, 20 RPD, 200k tokens/day per listed model."
+        "summary": "Free account without a payment method; currently listed models are preview/evaluation only, not for production. Free limits 20 RPM, 20 RPD, 200k tokens/day per listed model. Existing GPT-OSS fallback retained for evaluation."
       },
       "sources": [
         "https://docs.sambanova.ai/docs/en/models/rate-limits",
