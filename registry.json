@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-12",
+  "updated_at": "2026-11-26",
   "default_group": "free-models",
   "description": "Curated registry of AI API providers with ongoing free access or clearly marked prototype/trial access. No API keys are stored here.",
   "providers": [
@@ -19,15 +19,51 @@
       },
       "sources": [
         "https://ai.google.dev/gemini-api/docs/pricing",
-        "https://ai.google.dev/gemini-api/docs/openai"
+        "https://ai.google.dev/gemini-api/docs/openai",
+        "https://aistudio.google.com/docs/models/gemini-4-hydrogen",
+        "https://ai.google.dev/gemini-api/docs/deprecations",
+        "https://aistudio.google.com/docs/models/gemini-3.8-flash"
       ],
       "models": [
         {
-          "id": "gemini-3.7-flash",
+          "id": "gemini-4-hydrogen",
           "enabled": true,
           "include_in_default_group": true,
           "priority": 10,
           "status": "ga",
+          "context_tokens": 1048576,
+          "capabilities": [
+            "text",
+            "vision",
+            "reasoning",
+            "tools",
+            "structured-output",
+            "coding"
+          ],
+          "notes": "Released November 12, 2026; standard API input/output free on Free Tier. Verify OpenAI compatibility and account quotas before rollout."
+        },
+        {
+          "id": "gemini-3.8-flash",
+          "enabled": true,
+          "include_in_default_group": true,
+          "priority": 50,
+          "status": "ga",
+          "context_tokens": 1048576,
+          "capabilities": [
+            "text",
+            "vision",
+            "reasoning",
+            "tools",
+            "structured-output"
+          ],
+          "notes": "Current explicit replacement for the 3.7 legacy alias; standard Free Tier."
+        },
+        {
+          "id": "gemini-3.7-flash",
+          "enabled": true,
+          "include_in_default_group": false,
+          "priority": 150,
+          "status": "legacy-alias",
           "context_tokens": 1000000,
           "capabilities": [
             "text",
@@ -36,7 +72,7 @@
             "tools",
             "structured-output"
           ],
-          "notes": "Current high-quality default Gemini free-tier model for coding and agentic workflows."
+          "notes": "Legacy endpoint now automatically routes to Gemini 3.8 Flash; retain direct compatibility, avoid duplicate default attempts."
         },
         {
           "id": "gemini-3.6-flash",
@@ -70,7 +106,10 @@
       },
       "sources": [
         "https://console.groq.com/docs/rate-limits",
-        "https://console.groq.com/docs/openai"
+        "https://console.groq.com/docs/openai",
+        "https://console.groq.com/docs/deprecations",
+        "https://console.groq.com/docs/tool-use/overview",
+        "https://console.groq.com/docs/model/qwen/qwen3.8-27b"
       ],
       "models": [
         {
@@ -93,10 +132,10 @@
           }
         },
         {
-          "id": "qwen/qwen3.6-27b",
+          "id": "qwen/qwen3.8-27b",
           "enabled": true,
           "include_in_default_group": true,
-          "priority": 50,
+          "priority": 25,
           "status": "preview",
           "context_tokens": 131072,
           "capabilities": [
@@ -111,13 +150,14 @@
             "rpd": 1000,
             "tpm": 8000,
             "tpd": 200000
-          }
+          },
+          "notes": "Direct replacement for 3.6, shut down September 14 on Free/Developer; parallel tool use supported."
         },
         {
           "id": "openai/gpt-oss-20b",
           "enabled": true,
-          "include_in_default_group": false,
-          "priority": 120,
+          "include_in_default_group": true,
+          "priority": 92,
           "status": "production",
           "capabilities": [
             "text",
@@ -176,9 +216,9 @@
       "api_key_env": "SAMBANOVA_API_KEY",
       "signup_url": "https://cloud.sambanova.ai/",
       "free_tier": {
-        "type": "ongoing",
+        "type": "prototype_trial",
         "default_group_eligible": true,
-        "summary": "SambaCloud Free Tier is applied when no payment method is linked. Production model free limits are currently 20 RPM, 20 RPD and 200k tokens/day per model."
+        "summary": "Free account without a payment method; currently listed models are preview/evaluation only, not for production. Free limits 20 RPM, 20 RPD, 200k tokens/day per listed model. Existing GPT-OSS fallback retained for evaluation."
       },
       "sources": [
         "https://docs.sambanova.ai/docs/en/models/rate-limits",
@@ -190,8 +230,8 @@
           "id": "gpt-oss-120b",
           "enabled": true,
           "include_in_default_group": true,
-          "priority": 40,
-          "status": "production",
+          "priority": 115,
+          "status": "preview",
           "context_tokens": 128000,
           "capabilities": [
             "text",
@@ -203,14 +243,15 @@
             "rpm": 20,
             "rpd": 20,
             "tpd": 200000
-          }
+          },
+          "notes": "Preview/evaluation only; free tier listed by provider."
         },
         {
           "id": "DeepSeek-V3.1",
-          "enabled": true,
-          "include_in_default_group": true,
+          "enabled": false,
+          "include_in_default_group": false,
           "priority": 60,
-          "status": "production",
+          "status": "not-listed-free",
           "context_tokens": 128000,
           "capabilities": [
             "text"
@@ -219,14 +260,15 @@
             "rpm": 20,
             "rpd": 20,
             "tpd": 200000
-          }
+          },
+          "notes": "No longer listed in the official Free Tier rate table; excluded pending verification."
         },
         {
           "id": "DeepSeek-V3.2",
-          "enabled": true,
+          "enabled": false,
           "include_in_default_group": false,
           "priority": 130,
-          "status": "preview",
+          "status": "not-listed-free",
           "context_tokens": 32000,
           "capabilities": [
             "text",
@@ -237,14 +279,14 @@
             "rpd": 20,
             "tpd": 200000
           },
-          "notes": "Preview/evaluation model; may be removed at short notice."
+          "notes": "No longer listed in the official Free Tier rate table; excluded pending verification."
         },
         {
           "id": "Meta-Llama-3.3-70B-Instruct",
-          "enabled": true,
+          "enabled": false,
           "include_in_default_group": false,
           "priority": 140,
-          "status": "production",
+          "status": "not-listed-free",
           "context_tokens": 128000,
           "capabilities": [
             "text"
@@ -253,7 +295,25 @@
             "rpm": 20,
             "rpd": 20,
             "tpd": 200000
-          }
+          },
+          "notes": "No longer listed in the official Free Tier rate table; excluded pending verification."
+        },
+        {
+          "id": "gemma-4-31B-it",
+          "enabled": true,
+          "include_in_default_group": false,
+          "priority": 145,
+          "status": "preview",
+          "capabilities": [
+            "text",
+            "vision"
+          ],
+          "free_limits": {
+            "rpm": 20,
+            "rpd": 20,
+            "tpd": 200000
+          },
+          "notes": "Listed in official free rate table; evaluation only. Tool use not verified; excluded from default agent pool."
         }
       ]
     },
@@ -310,7 +370,8 @@
         "https://developers.cloudflare.com/workers-ai/platform/pricing/",
         "https://developers.cloudflare.com/workers-ai/configuration/open-ai-compatibility/",
         "https://developers.cloudflare.com/changelog/post/2026-07-28-models-require-workers-paid/",
-        "https://developers.cloudflare.com/workers-ai/models/qwen3.8-27b/"
+        "https://developers.cloudflare.com/workers-ai/models/qwen3.8-27b/",
+        "https://developers.cloudflare.com/changelog/post/2026-11-05-planned-model-deprecations/"
       ],
       "models": [
         {
@@ -350,10 +411,10 @@
         },
         {
           "id": "@cf/nvidia/nemotron-3-120b-a12b",
-          "enabled": true,
-          "include_in_default_group": true,
+          "enabled": false,
+          "include_in_default_group": false,
           "priority": 85,
-          "status": "production-free-plan",
+          "status": "retired",
           "capabilities": [
             "text",
             "reasoning"
@@ -361,7 +422,7 @@
           "free_limits": {
             "neurons_per_day_shared": 10000
           },
-          "notes": "Confirmed by Cloudflare as remaining available on Workers Free after the July 28, 2026 paid-plan restriction change."
+          "notes": "Retired November 20, 2026; HTTP 410. Do not route."
         },
         {
           "id": "@cf/qwen/qwen3.8-27b",
@@ -401,7 +462,8 @@
         "https://build.nvidia.com/nvidia/nemotron-3.5-lightning-30b-a3b/build",
         "https://build.nvidia.com/nvidia/nemotron-3-ultra-550b-a55b/playground",
         "https://build.nvidia.com/z-ai/glm-5.2/playground",
-        "https://build.nvidia.com/explore/discover?docker=false"
+        "https://build.nvidia.com/explore/discover?docker=false",
+        "https://build.nvidia.com/z-ai/glm-5-3/build"
       ],
       "models": [
         {
@@ -446,6 +508,19 @@
             "tools",
             "agentic"
           ]
+        },
+        {
+          "id": "z-ai/glm-5.3",
+          "enabled": true,
+          "include_in_default_group": true,
+          "priority": 94,
+          "status": "prototype_trial",
+          "capabilities": [
+            "text",
+            "reasoning",
+            "coding"
+          ],
+          "notes": "NVIDIA Build advertises free development endpoint; account access and tool compatibility not verified. Trial terms apply."
         }
       ]
     }

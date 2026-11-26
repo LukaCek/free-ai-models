@@ -20,23 +20,32 @@ Current default candidates are ordered by `priority` (lower is preferred):
 
 | Priority | Provider | Model | Free access |
 |---:|---|---|---|
-| 10 | Google Gemini | `gemini-3.7-flash` | ongoing free tier |
-| 20 | Groq | `openai/gpt-oss-120b` | ongoing free plan |
-| 30 | Mistral AI | `mistral-large-latest` | Free mode |
-| 40 | SambaNova Cloud | `gpt-oss-120b` | free tier |
-| 50 | Groq | `qwen/qwen3.6-27b` | ongoing free plan |
-| 60 | SambaNova Cloud | `DeepSeek-V3.1` | free tier |
-| 70 | Google Gemini | `gemini-3.6-flash` | ongoing free tier |
+| 10 | Google Gemini API | `gemini-4-hydrogen` | ongoing free tier |
+| 20 | Groq | `openai/gpt-oss-120b` | ongoing free tier |
+| 25 | Groq | `qwen/qwen3.8-27b` | ongoing free tier |
+| 30 | Mistral AI | `mistral-large-latest` | ongoing free tier |
+| 50 | Google Gemini API | `gemini-3.8-flash` | ongoing free tier |
+| 70 | Google Gemini API | `gemini-3.6-flash` | ongoing free tier |
 | 75 | Cloudflare Workers AI | `@cf/zai-org/glm-4.7-flash` | Workers Free, shared 10k neurons/day |
 | 80 | Cloudflare Workers AI | `@cf/google/gemma-4-26b-a4b-it` | Workers Free, shared 10k neurons/day |
-| 85 | Cloudflare Workers AI | `@cf/nvidia/nemotron-3-120b-a12b` | Workers Free, shared 10k neurons/day |
 | 87 | Cloudflare Workers AI | `@cf/qwen/qwen3.8-27b` | Workers Free, shared 10k neurons/day |
 | 90 | OpenRouter | `openrouter/free` | dynamic free router |
-| 95 | NVIDIA NIM | `z-ai/glm-5.2` | free prototype/development endpoint |
-| 100 | NVIDIA NIM | `nvidia/nemotron-3-ultra-550b-a55b` | free prototype/development endpoint |
-| 105 | NVIDIA NIM | `nvidia/nemotron-3.5-lightning-30b-a3b` | free prototype/development endpoint |
+| 92 | Groq | `openai/gpt-oss-20b` | ongoing free tier |
+| 94 | NVIDIA NIM Hosted API | `z-ai/glm-5.3` | free prototype/development endpoint |
+| 95 | NVIDIA NIM Hosted API | `z-ai/glm-5.2` | free prototype/development endpoint |
+| 100 | NVIDIA NIM Hosted API | `nvidia/nemotron-3-ultra-550b-a55b` | free prototype/development endpoint |
+| 105 | NVIDIA NIM Hosted API | `nvidia/nemotron-3.5-lightning-30b-a3b` | free prototype/development endpoint |
+| 115 | SambaNova Cloud | `gpt-oss-120b` | evaluation-only free tier |
 
 ## Provider notes
+
+### Google Gemini and Groq
+
+Gemini 4 Hydrogen and Gemini 3.8 Flash have standard API free tiers. The 3.7 Flash endpoint now aliases 3.8, so it remains available for direct calls but is not duplicated in the default pool. Groq retired Qwen 3.6 27B on September 14, 2026; Qwen 3.8 27B is the replacement. Groq GPT-OSS 20B is now a late ongoing-free fallback before trial providers.
+
+### SambaNova
+
+The current official free-rate table lists GPT-OSS 120B and Gemma 4 31B IT, both evaluation-only. Older DeepSeek and Llama entries are disabled pending renewed free-tier verification. Gemma is available for explicit evaluation but is not automatically routed until tool compatibility is verified.
 
 ### Cloudflare Workers AI
 
@@ -44,12 +53,13 @@ Cloudflare Workers AI has a genuine ongoing free allocation of **10,000 neurons 
 
 - `@cf/google/gemma-4-26b-a4b-it`
 - `@cf/zai-org/glm-4.7-flash`
-- `@cf/nvidia/nemotron-3-120b-a12b`
 - `@cf/qwen/qwen3.8-27b`
 
 Workers AI exposes an OpenAI-compatible `/v1/chat/completions` endpoint. Its URL includes the user's Cloudflare Account ID, so the registry declares `account_id_env: CLOUDFLARE_ACCOUNT_ID` and uses `{CLOUDFLARE_ACCOUNT_ID}` in the endpoint template. SimpleAIProxy resolves this value from either environment variables or from the account ID saved beside each UI-managed credential.
 
 Cloudflare moved `@cf/moonshotai/kimi-k2.6`, `@cf/moonshotai/kimi-k2.7-code`, and `@cf/zai-org/glm-5.2` to the Workers Paid plan on July 28, 2026, so those models are not treated as Free-plan models here.
+
+Cloudflare retired Nemotron 3 120B A12B on November 20, 2026. The entry is disabled. GLM-5.3 and DeepSeek V4.1 Flash require paid access on Cloudflare and are not added.
 
 ### NVIDIA NIM
 
@@ -108,4 +118,4 @@ When updating this registry:
 5. Update `updated_at` whenever verified availability, limits, endpoints, or model IDs change.
 6. Never commit API keys, OAuth tokens, account identifiers, or other secrets.
 
-Last verified: **2026-10-12**.
+Catalog refreshed: **2026-11-26** (Google, Groq, SambaNova, Cloudflare and NVIDIA GLM-5.3 documentation checked; actual credential quotas, Mistral and unchanged NVIDIA models require separate verification). No live inference tests performed.
